@@ -1,0 +1,1626 @@
+BUSINESS REQUIREMENTS DOCUMENT (BRD)
+
+EMERGING TALKS — PODCAST MATCHER
+
+Product: Emerging Talks Podcast Matcher
+Document Type: Business Requirements Document (BRD)
+Version: 1.2
+Status: Revised Draft for Product Approval
+Product Category: SaaS Platform / Two-Sided Marketplace
+Business Owner: Emerging Talks
+Proposed Platform: Web Application
+Payment Provider: To be selected; provider-agnostic integration required
+Proposed Application Architecture: React Frontend + Backend + Database
+Target Market: India initially, with international expansion capability
+
+---
+
+1. EXECUTIVE SUMMARY
+
+1.1 Project Overview
+
+Emerging Talks Podcast Matcher is a digital platform designed to connect podcast hosts with relevant guests through intelligent discovery, profile-based recommendations, communication and interview-booking workflows.
+
+The platform will provide a centralised environment where podcast hosts can discover credible experts, founders, entrepreneurs, authors, professionals and content creators for their shows.
+
+Similarly, individuals seeking podcast appearances will be able to discover relevant podcasts, evaluate opportunities, approach hosts and manage their interview applications.
+
+The platform aims to reduce the time, effort and uncertainty involved in finding suitable podcast collaborations.
+
+Unlike a conventional directory, Emerging Talks Podcast Matcher will facilitate the complete collaboration journey:
+
+Discovery → Matching → Connection → Pitching → Acceptance → Scheduling → Recording → Publishing → Reviews
+
+The long-term objective is to establish Emerging Talks as a professional podcast collaboration network.
+
+1.2 Business Problem
+
+The podcast ecosystem has two interconnected challenges.
+
+For podcast hosts:
+
+- Difficulty identifying relevant and credible guests.
+- Time-consuming manual guest research.
+- Receiving irrelevant or generic pitches.
+- Lack of a centralised guest discovery platform.
+- Difficulty managing guest enquiries and interview schedules.
+- Limited access to experts outside their existing networks.
+
+For podcast guests:
+
+- Difficulty identifying podcasts that accept guests.
+- Limited access to podcast hosts.
+- Lack of clarity about audience relevance and show quality.
+- Time-consuming cold outreach.
+- Difficulty presenting professional credentials and interview experience.
+- No centralised system to track podcast applications and appearances.
+
+1.3 Proposed Solution
+
+Develop a two-sided marketplace that provides:
+
+1. Podcast host registration and profiles.
+2. Podcast guest registration and professional profiles.
+3. Searchable podcast directory.
+4. Searchable guest directory.
+5. Intelligent matching recommendations.
+6. Personalised discovery.
+7. Interview invitations and guest applications.
+8. Internal messaging.
+9. Media kit management.
+10. Interview scheduling.
+11. Booking management.
+12. Episode and publication tracking.
+13. Reviews and reputation management.
+14. Subscription and premium functionality.
+15. Platform administration and moderation.
+
+---
+
+2. BUSINESS OBJECTIVES
+
+The platform must achieve the following business objectives.
+
+ID| Business Objective| Expected Outcome
+BO-01| Connect podcast hosts with suitable guests| Increased successful collaborations
+BO-02| Simplify podcast discovery| Reduced manual research
+BO-03| Improve match relevance| Better-quality connections
+BO-04| Facilitate interview bookings| Higher conversion from discovery to recording
+BO-05| Establish a professional user network| Increased platform engagement
+BO-06| Build trust and credibility| Better-quality marketplace participation
+BO-07| Generate recurring revenue| Sustainable subscription business
+BO-08| Create a scalable platform| Ability to expand internationally
+
+2.1 Key Business Outcomes
+
+The platform should ultimately enable users to:
+
+- Find relevant podcast opportunities.
+- Identify suitable guests.
+- Establish professional connections.
+- Convert connections into confirmed interviews.
+- Track the outcome of collaborations.
+- Build a verifiable history of podcast appearances.
+- Develop long-term professional relationships.
+
+---
+
+3. PROJECT SCOPE
+
+3.1 In-Scope Modules
+
+The following modules constitute the proposed platform scope.
+
+Module| Description| Priority
+User Registration| Account creation and authentication| P0
+User Onboarding| Role selection and profile setup| P0
+Host Profiles| Professional podcast host profiles| P0
+Guest Profiles| Professional guest profiles and media kits| P0
+Podcast Directory| Discover and search podcasts| P0
+Guest Directory| Discover and search guests| P0
+Matching Engine| Compatibility scoring and recommendations| P0
+Search & Filters| Advanced discovery functionality| P0
+Invitations| Guest invitations and applications| P0
+Messaging| Internal communication| P0
+Notifications| Email and in-app alerts| P0
+Booking Management| Interview request and confirmation workflow| P1
+Scheduling| Calendar and recording coordination| P1
+Episode Tracking| Recording and publication status| P1
+Reviews| Post-interview ratings and feedback| P1
+Verification| Profile and podcast verification| P1
+Subscription Management| Paid plans and access control| P0
+Admin Dashboard| Platform management| P0
+Analytics| Business and user performance reporting| P1
+AI Features| AI-powered recommendations and assistance| P2
+Agency Accounts| Multi-client profile management| P2
+Mobile Applications| Dedicated Android and iOS apps| P3
+
+Priority definitions:
+
+- P0: Essential for the initial functional release.
+- P1: Important for a complete commercial platform.
+- P2: Advanced capabilities.
+- P3: Future expansion.
+
+---
+
+4. USER ROLES AND PERMISSIONS
+
+The platform must support the following user roles.
+
+4.1 Podcast Host
+
+A podcast host must be able to:
+
+- Create and manage a professional profile.
+- Register one or more podcasts.
+- Add podcast distribution links.
+- Define guest requirements.
+- Discover potential guests.
+- Apply search filters.
+- View guest profiles and media kits.
+- Save guests to shortlists.
+- Send interview invitations.
+- Receive guest applications.
+- Accept or reject applications.
+- Communicate with guests.
+- Schedule interviews.
+- Manage upcoming interviews.
+- Update recording and publication status.
+- Submit reviews after interviews.
+
+4.2 Podcast Guest
+
+A podcast guest must be able to:
+
+- Create and manage a professional profile.
+- Add expertise and discussion topics.
+- Upload professional photographs.
+- Create a media kit.
+- Add previous podcast appearances.
+- Discover relevant podcasts.
+- View podcast details.
+- Apply for guest opportunities.
+- Send personalised pitches.
+- Receive invitations.
+- Accept or decline invitations.
+- Communicate with hosts.
+- Manage interview requests.
+- Track upcoming interviews.
+- Record published appearances.
+- Receive reviews.
+
+4.3 Dual-Role User
+
+A user may operate as both a host and guest.
+
+The system must allow the user to:
+
+- Switch between host and guest dashboards.
+- Maintain separate host and guest profile information.
+- Operate multiple podcasts under one account.
+- Maintain one central account identity.
+- Receive notifications relevant to both roles.
+
+4.4 Administrator
+
+The administrator must have access to:
+
+- User management.
+- Profile management.
+- Podcast management.
+- Subscription management.
+- Payment and transaction information.
+- Verification requests.
+- Reported accounts.
+- Moderation tools.
+- Content management.
+- Matching configuration.
+- Platform analytics.
+- System settings.
+- Audit logs.
+
+4.5 Agency / Manager
+
+The future agency role should support:
+
+- Managing multiple clients.
+- Creating and editing client profiles with permission.
+- Tracking applications.
+- Managing guest opportunities.
+- Communicating on behalf of clients.
+- Generating client activity reports.
+- Managing agency subscriptions.
+
+---
+
+5. FUNCTIONAL REQUIREMENTS
+
+MODULE 01: REGISTRATION AND AUTHENTICATION
+
+Requirement ID: FR-001
+
+The system shall provide secure registration and authentication.
+
+Functional Requirements
+
+FR-001.1: Users shall register using an email address and password.
+
+FR-001.2: Users shall be able to register using supported third-party authentication providers.
+
+FR-001.3: The system shall verify user email addresses.
+
+FR-001.4: Users shall be able to reset forgotten passwords.
+
+FR-001.5: Users shall be able to log out securely.
+
+FR-001.6: The system shall maintain authenticated sessions.
+
+FR-001.7: Users shall be able to manage their account information.
+
+FR-001.8: Users shall be able to request account deletion.
+
+FR-001.9: The system shall prevent duplicate account registrations using the same email address.
+
+FR-001.10: The system shall support account suspension and reactivation by authorised administrators.
+
+MODULE 02: ONBOARDING
+
+Requirement ID: FR-002
+
+The system shall provide role-specific onboarding.
+
+FR-002.1: Users shall select Host, Guest or Both.
+
+FR-002.2: The system shall display relevant onboarding fields based on the selected role.
+
+FR-002.3: Users shall be able to save incomplete onboarding progress.
+
+FR-002.4: The system shall display profile completion percentages.
+
+FR-002.5: The system shall validate mandatory fields.
+
+FR-002.6: Users shall be able to preview their profiles before publishing.
+
+FR-002.7: Users shall be able to edit profile information after onboarding.
+
+FR-002.8: Users shall be able to change or add roles later.
+
+MODULE 03: PODCAST HOST PROFILE
+
+Requirement ID: FR-003
+
+The system shall allow podcast hosts to create comprehensive professional profiles.
+
+Required information:
+
+- Name.
+- Photograph.
+- Professional designation.
+- Organisation.
+- Biography.
+- Location.
+- Language.
+- Website.
+- Social media links.
+- Podcast information.
+- Podcast categories.
+- Podcast description.
+- Podcast links.
+- Publishing frequency.
+- Episode duration.
+- Target audience.
+- Audience information.
+- Recording preferences.
+- Guest requirements.
+- Availability.
+
+FR-003.1: Hosts shall be able to register multiple podcasts.
+
+FR-003.2: Each podcast shall have an independent profile.
+
+FR-003.3: Hosts shall be able to edit podcast information.
+
+FR-003.4: Hosts shall be able to update guest requirements.
+
+FR-003.5: Hosts shall be able to indicate whether they are accepting guests.
+
+FR-003.6: Hosts shall be able to deactivate individual podcast listings.
+
+FR-003.7: Hosts shall be able to provide external podcast distribution links.
+
+MODULE 04: PODCAST GUEST PROFILE
+
+Requirement ID: FR-004
+
+The system shall provide guests with professional profiles.
+
+Required information:
+
+- Name.
+- Professional photograph.
+- Designation.
+- Organisation.
+- Biography.
+- Industry.
+- Expertise.
+- Topics.
+- Location.
+- Languages.
+- Website.
+- Social media links.
+- Previous appearances.
+- Speaking experience.
+- Interview preferences.
+- Availability.
+- Commercial preferences.
+
+FR-004.1: Guests shall be able to list multiple areas of expertise.
+
+FR-004.2: Guests shall be able to add suggested interview topics.
+
+FR-004.3: Guests shall be able to add previous podcast appearances.
+
+FR-004.4: Guests shall be able to upload photographs and supporting media.
+
+FR-004.5: Guests shall be able to generate downloadable media kits.
+
+FR-004.6: Guests shall be able to manage their visibility and profile privacy.
+
+FR-004.7: Guests shall be able to indicate their availability for interviews.
+
+MODULE 05: PODCAST DIRECTORY
+
+Requirement ID: FR-005
+
+The system shall maintain a searchable directory of podcasts.
+
+FR-005.1: Users shall be able to browse available podcasts.
+
+FR-005.2: Users shall be able to search by podcast name.
+
+FR-005.3: Users shall be able to search by host name.
+
+FR-005.4: Users shall be able to filter by category and subcategory.
+
+FR-005.5: Users shall be able to filter by language.
+
+FR-005.6: Users shall be able to filter by location.
+
+FR-005.7: Users shall be able to filter by audience information.
+
+FR-005.8: Users shall be able to filter by podcast format.
+
+FR-005.9: Users shall be able to filter by guest acceptance status.
+
+FR-005.10: Users shall be able to save podcasts to favourites.
+
+FR-005.11: Users shall be able to view detailed podcast profiles.
+
+FR-005.12: Users shall be able to report inaccurate podcast listings.
+
+MODULE 06: GUEST DIRECTORY
+
+Requirement ID: FR-006
+
+The system shall maintain a searchable directory of podcast guests.
+
+FR-006.1: Hosts shall be able to browse available guests.
+
+FR-006.2: Hosts shall be able to search by name, industry and expertise.
+
+FR-006.3: Hosts shall be able to filter by location and language.
+
+FR-006.4: Hosts shall be able to filter by previous podcast experience.
+
+FR-006.5: Hosts shall be able to filter by availability.
+
+FR-006.6: Hosts shall be able to filter by interview format.
+
+FR-006.7: Hosts shall be able to view guest media kits.
+
+FR-006.8: Hosts shall be able to save guests.
+
+FR-006.9: Hosts shall be able to create and manage guest shortlists.
+
+FR-006.10: Hosts shall be able to share guest profiles.
+
+MODULE 07: MATCHING ENGINE
+
+Requirement ID: FR-007
+
+The system shall generate recommendations based on compatibility between podcast hosts, podcasts and guests.
+
+FR-007.1: The system shall evaluate topic compatibility.
+
+FR-007.2: The system shall evaluate audience compatibility.
+
+FR-007.3: The system shall evaluate industry relevance.
+
+FR-007.4: The system shall evaluate language compatibility.
+
+FR-007.5: The system shall consider interview format.
+
+FR-007.6: The system shall consider availability.
+
+FR-007.7: The system shall consider experience requirements.
+
+FR-007.8: The system shall consider commercial preferences.
+
+FR-007.9: The system shall generate a match score between 0 and 100.
+
+FR-007.10: The system shall explain the major reasons behind each recommendation.
+
+FR-007.11: The system shall allow users to dismiss irrelevant recommendations.
+
+FR-007.12: The system shall refresh recommendations when relevant profile information changes.
+
+FR-007.13: The system shall avoid recommending blocked users.
+
+FR-007.14: The system shall support future AI-assisted semantic matching.
+
+MODULE 08: SEARCH AND FILTERS
+
+Requirement ID: FR-008
+
+The system shall provide advanced search functionality.
+
+FR-008.1: Users shall be able to search by keywords.
+
+FR-008.2: Users shall be able to combine multiple filters.
+
+FR-008.3: Users shall be able to sort results by relevance.
+
+FR-008.4: Users shall be able to sort results by recent activity.
+
+FR-008.5: Users shall be able to sort results by profile completeness.
+
+FR-008.6: Users shall be able to sort results by match percentage.
+
+FR-008.7: Users shall be able to save frequently used searches.
+
+FR-008.8: Users shall be able to clear all filters.
+
+FR-008.9: The system shall provide relevant empty-state messages.
+
+MODULE 09: INTERVIEW APPLICATIONS AND INVITATIONS
+
+Requirement ID: FR-009
+
+The system shall provide a structured interview request workflow.
+
+FR-009.1: Guests shall be able to apply to podcasts.
+
+FR-009.2: Guests shall be able to submit personalised pitches.
+
+FR-009.3: Guests shall be able to suggest interview topics.
+
+FR-009.4: Guests shall be able to attach or share their media kits.
+
+FR-009.5: Hosts shall be able to invite guests.
+
+FR-009.6: Hosts shall be able to review incoming applications.
+
+FR-009.7: Hosts shall be able to accept applications.
+
+FR-009.8: Hosts shall be able to reject applications.
+
+FR-009.9: Hosts shall be able to request additional information.
+
+FR-009.10: Guests shall receive application status updates.
+
+FR-009.11: The system shall prevent duplicate active applications for the same podcast and guest.
+
+FR-009.12: Users shall be able to withdraw applications or invitations before confirmation.
+
+FR-009.13: The system shall maintain a record of application history.
+
+MODULE 10: MESSAGING SYSTEM
+
+Requirement ID: FR-010
+
+The platform shall provide internal communication between hosts and guests.
+
+FR-010.1: Users shall be able to initiate conversations through permitted collaboration workflows.
+
+FR-010.2: Users shall be able to send and receive messages.
+
+FR-010.3: Users shall be able to exchange links and permitted attachments.
+
+FR-010.4: Users shall be able to view conversation history.
+
+FR-010.5: The system shall display message timestamps.
+
+FR-010.6: The system shall provide unread message indicators.
+
+FR-010.7: Users shall be able to mute conversations.
+
+FR-010.8: Users shall be able to block or report abusive users.
+
+FR-010.9: The system shall enforce message rate limits.
+
+FR-010.10: Messages shall persist across sessions and devices.
+
+FR-010.11: The system shall support real-time messaging or timely message delivery.
+
+MODULE 11: INTERVIEW BOOKING AND SCHEDULING
+
+Requirement ID: FR-011
+
+The platform shall support the conversion of accepted applications into confirmed interviews.
+
+FR-011.1: Users shall be able to propose recording dates.
+
+FR-011.2: Users shall be able to propose time slots.
+
+FR-011.3: The system shall handle time-zone differences.
+
+FR-011.4: Hosts shall be able to confirm recording schedules.
+
+FR-011.5: Guests shall be able to accept or request changes.
+
+FR-011.6: The system shall generate booking confirmations.
+
+FR-011.7: The system shall provide calendar integration in the relevant release.
+
+FR-011.8: Users shall receive booking reminders.
+
+FR-011.9: Users shall be able to reschedule interviews.
+
+FR-011.10: Users shall be able to cancel interviews.
+
+FR-011.11: The system shall record cancellation reasons where provided.
+
+FR-011.12: Users shall be able to add recording platform details.
+
+FR-011.13: The system shall maintain upcoming and past bookings.
+
+MODULE 12: EPISODE AND PUBLICATION TRACKING
+
+Requirement ID: FR-012
+
+The platform shall track the outcome of confirmed collaborations.
+
+FR-012.1: Hosts shall be able to mark interviews as scheduled.
+
+FR-012.2: Hosts shall be able to mark interviews as recorded.
+
+FR-012.3: Hosts shall be able to mark episodes as published.
+
+FR-012.4: Hosts shall be able to provide publication dates.
+
+FR-012.5: Hosts shall be able to add published episode URLs.
+
+FR-012.6: Guests shall be able to view their appearance history.
+
+FR-012.7: The system shall maintain a record of completed collaborations.
+
+FR-012.8: The system shall support episode details and publication links.
+
+FR-012.9: The system shall allow guests to flag inaccurate appearance records.
+
+MODULE 13: REVIEWS AND REPUTATION
+
+Requirement ID: FR-013
+
+The platform shall provide a post-collaboration feedback system.
+
+FR-013.1: Hosts shall be able to review guests after completed interviews.
+
+FR-013.2: Guests shall be able to review hosts after completed interviews.
+
+FR-013.3: Reviews shall be linked to eligible collaborations.
+
+FR-013.4: Users shall be able to rate communication and professionalism.
+
+FR-013.5: Users shall be able to rate preparation and collaboration experience.
+
+FR-013.6: The platform shall display eligible ratings.
+
+FR-013.7: Administrators shall be able to moderate reported reviews.
+
+FR-013.8: The system shall prevent duplicate reviews for the same collaboration and reviewer.
+
+FR-013.9: The system shall provide a mechanism to dispute inaccurate reviews.
+
+MODULE 14: VERIFICATION AND TRUST
+
+Requirement ID: FR-014
+
+The platform shall provide verification mechanisms.
+
+FR-014.1: Users shall be able to request profile verification.
+
+FR-014.2: Podcast owners shall be able to submit podcast ownership evidence.
+
+FR-014.3: Administrators shall be able to review verification requests.
+
+FR-014.4: The system shall display verification status.
+
+FR-014.5: Verification shall not be granted automatically based only on profile completion.
+
+FR-014.6: Users shall be able to report suspicious accounts.
+
+FR-014.7: Administrators shall be able to suspend fraudulent accounts.
+
+FR-014.8: The system shall maintain verification records.
+
+MODULE 15: NOTIFICATIONS
+
+Requirement ID: FR-015
+
+The platform shall provide notifications through supported channels.
+
+Notification events shall include:
+
+- New interview invitation.
+- New guest application.
+- Application accepted.
+- Application rejected.
+- New message.
+- New match.
+- Booking confirmation.
+- Booking modification.
+- Interview reminder.
+- Interview cancellation.
+- Episode published.
+- New review.
+- Subscription payment.
+- Subscription renewal.
+- Subscription expiration.
+
+FR-015.1: Notifications shall be available in the application.
+
+FR-015.2: Email notifications shall be supported.
+
+FR-015.3: Users shall be able to configure notification preferences.
+
+FR-015.4: The system shall prevent unnecessary duplicate notifications.
+
+FR-015.5: The system shall track notification delivery status where supported.
+
+MODULE 16: SUBSCRIPTION AND MONETISATION
+
+Requirement ID: FR-016
+
+The platform shall support free and paid membership plans.
+
+FR-016.1: The platform shall support configurable subscription tiers.
+
+FR-016.2: The platform shall display plan pricing.
+
+FR-016.3: The platform shall display plan benefits and limitations.
+
+FR-016.4: Users shall be able to purchase eligible subscriptions.
+
+FR-016.5: Users shall be able to view payment history.
+
+FR-016.6: The system shall validate subscription status.
+
+FR-016.7: The system shall activate eligible entitlements after verified payment.
+
+FR-016.8: The system shall handle failed payments.
+
+FR-016.9: The system shall handle subscription expiration.
+
+FR-016.10: The system shall handle refunds and cancellations.
+
+FR-016.11: The system shall prevent unauthorised access to premium features.
+
+FR-016.12: The system shall integrate with a payment service provider (PSP) selected by Emerging Talks. The integration shall be provider-agnostic to the extent reasonably practicable.
+
+FR-016.13: Payment confirmation shall be based on verified server-side payment events, not browser redirects. The application shall not depend on a specific PSP's proprietary subscription or order model.
+
+FR-016.14: The system shall maintain an auditable transaction record.
+
+MODULE 17: ADMINISTRATION DASHBOARD
+
+Requirement ID: FR-017
+
+The system shall provide administrators with centralised platform management.
+
+FR-017.1: Administrators shall be able to view registered users.
+
+FR-017.2: Administrators shall be able to search and filter accounts.
+
+FR-017.3: Administrators shall be able to manage host and guest profiles.
+
+FR-017.4: Administrators shall be able to review podcast listings.
+
+FR-017.5: Administrators shall be able to manage reported content.
+
+FR-017.6: Administrators shall be able to suspend or reactivate accounts.
+
+FR-017.7: Administrators shall be able to manage subscription plans.
+
+FR-017.8: Administrators shall be able to view payment status.
+
+FR-017.9: Administrators shall be able to approve verification requests.
+
+FR-017.10: Administrators shall be able to configure matching parameters.
+
+FR-017.11: Administrators shall be able to manage categories and industries.
+
+FR-017.12: Administrators shall be able to access platform analytics.
+
+FR-017.13: The system shall maintain administrative activity logs.
+
+MODULE 18: ANALYTICS AND REPORTING
+
+Requirement ID: FR-018
+
+The platform shall provide reporting capabilities.
+
+Host analytics
+
+- Profile views.
+- Podcast views.
+- Guest profile views.
+- Invitations sent.
+- Applications received.
+- Applications accepted.
+- Interviews scheduled.
+- Interviews completed.
+- Published episodes.
+
+Guest analytics
+
+- Profile views.
+- Podcast opportunities discovered.
+- Applications submitted.
+- Invitations received.
+- Applications accepted.
+- Interviews completed.
+- Published appearances.
+
+Business analytics
+
+- Total registered users.
+- Active hosts.
+- Active guests.
+- Number of podcasts.
+- Number of applications.
+- Successful matches.
+- Confirmed bookings.
+- Completed interviews.
+- Subscription revenue.
+- Subscription conversion.
+- User retention.
+- Marketplace activity.
+
+MODULE 19: AI-POWERED FEATURES
+
+Requirement ID: FR-019
+
+The platform may introduce AI capabilities to improve productivity.
+
+Potential capabilities:
+
+- AI-generated guest pitches.
+- AI-generated interview questions.
+- AI-generated episode topics.
+- AI profile summarisation.
+- AI-powered semantic matching.
+- Podcast suitability analysis.
+- Guest expertise recommendations.
+- Profile improvement suggestions.
+- Automated media kit creation.
+- AI-assisted communication drafts.
+
+AI-generated information shall be editable by the user and must not be presented as verified facts without evidence.
+
+MODULE 20: REPORTING, MODERATION AND SAFETY
+
+Requirement ID: FR-020
+
+The platform shall support safe marketplace operations.
+
+FR-020.1: Users shall be able to report suspicious accounts.
+
+FR-020.2: Users shall be able to report inappropriate messages.
+
+FR-020.3: Users shall be able to block other users.
+
+FR-020.4: Administrators shall be able to investigate complaints.
+
+FR-020.5: The platform shall implement anti-spam protections.
+
+FR-020.6: The platform shall enforce upload restrictions.
+
+FR-020.7: The platform shall maintain moderation records.
+
+FR-020.8: The platform shall provide policies governing acceptable use.
+
+---
+
+6. USER JOURNEYS AND BUSINESS WORKFLOWS
+
+6.1 Guest Journey
+
+1. User visits Emerging Talks.
+2. User registers.
+3. User selects Podcast Guest.
+4. User completes their professional profile.
+5. User adds expertise and interview topics.
+6. User uploads a photograph and media kit.
+7. User discovers relevant podcasts.
+8. User reviews podcast profiles.
+9. User sends a personalised pitch.
+10. Host receives an application notification.
+11. Host reviews the application.
+12. Host accepts, rejects or requests more information.
+13. Guest and host communicate.
+14. Interview date is proposed.
+15. Interview is confirmed.
+16. Interview takes place.
+17. Episode is published.
+18. Guest adds the appearance to their history.
+19. Both parties provide feedback.
+
+6.2 Host Journey
+
+1. Host registers.
+2. Host selects Podcast Host.
+3. Host creates their professional profile.
+4. Host registers their podcast.
+5. Host adds podcast distribution links.
+6. Host defines guest requirements.
+7. Host discovers recommended guests.
+8. Host searches and filters the directory.
+9. Host reviews guest profiles.
+10. Host saves suitable guests.
+11. Host sends interview invitations.
+12. Guest accepts or declines.
+13. Host and guest communicate.
+14. Interview is scheduled.
+15. Interview is recorded.
+16. Episode is published.
+17. Host updates publication details.
+18. Both parties provide feedback.
+
+6.3 Application Lifecycle
+
+The system shall support the following statuses:
+
+- Draft.
+- Submitted.
+- Pending review.
+- Under discussion.
+- More information requested.
+- Accepted.
+- Rejected.
+- Withdrawn.
+- Expired.
+- Converted to booking.
+
+6.4 Booking Lifecycle
+
+The system shall support:
+
+- Proposed.
+- Awaiting confirmation.
+- Confirmed.
+- Reschedule requested.
+- Rescheduled.
+- Cancelled.
+- Completed.
+- Recorded.
+- Published.
+- Closed.
+
+The application and booking records must be linked but maintained separately.
+
+---
+
+7. NON-FUNCTIONAL REQUIREMENTS
+
+The platform must satisfy the following quality requirements.
+
+7.1 Performance
+
+- Standard pages should load quickly under normal network conditions.
+- Search should return results without unnecessary delays.
+- Images should be optimised.
+- Pagination should be implemented for large datasets.
+- The platform should support increasing user volumes.
+
+7.2 Security
+
+- Secure authentication.
+- Role-based access control.
+- Encrypted communication.
+- Secure password storage.
+- Protection against common web vulnerabilities.
+- Secure file uploads.
+- Server-side validation.
+- Payment verification.
+- Protection against unauthorised database access.
+- Administrative access controls.
+
+7.3 Privacy and Compliance
+
+- Clear privacy policy.
+- Terms of service.
+- Cookie and tracking disclosures where applicable.
+- User consent management.
+- Data deletion procedures.
+- Data export capabilities.
+- Appropriate retention policies.
+- Applicable Indian data protection requirements, including the Digital Personal Data Protection Act and rules in force.
+- International privacy compliance where applicable.
+
+7.4 Scalability
+
+The system should support:
+
+- Increasing numbers of registered users.
+- Multiple podcasts per host.
+- Multiple roles per account.
+- Growing message histories.
+- Increasing search volumes.
+- Future mobile applications.
+- Additional payment gateways.
+- International markets.
+
+7.5 Compatibility
+
+The application should support:
+
+- Desktop browsers.
+- Tablets.
+- Android mobile browsers.
+- iOS mobile browsers.
+- Responsive layouts.
+
+7.6 Reliability
+
+- Automated database backups.
+- Error logging.
+- Monitoring.
+- Recovery procedures.
+- Transaction integrity.
+- Graceful failure handling.
+- Protection against data loss.
+
+---
+
+8. TECHNICAL AND SYSTEM REQUIREMENTS
+
+8.1 Proposed Technology Architecture
+
+Layer| Proposed Technology
+Frontend| React
+Application Hosting| Vercel / equivalent
+Backend| Node.js or managed backend
+Database| PostgreSQL / Supabase
+Authentication| Supabase Auth / equivalent
+File Storage| Supabase Storage / equivalent
+Messaging| Database-backed real-time messaging
+Email| Transactional email provider
+Payments| Selected payment service provider (PSP), to be confirmed
+Domain| Emerging Talks subdomain
+Analytics| Product analytics platform
+AI| Pluggable AI service
+Monitoring| Error and performance monitoring
+
+Final technology choices shall be confirmed during technical design.
+
+8.2 Proposed Application Architecture
+
+Main Emerging Talks website:
+
+emergingtalks.com
+
+Podcast Matcher application:
+
+matcher.emergingtalks.com
+
+Proposed flow:
+
+1. User visits the Emerging Talks website.
+2. User reviews the Podcast Matcher offering.
+3. User selects an available paid offering, if applicable to the approved monetisation model.
+4. User completes payment through the selected PSP, if payment is required.
+5. Payment confirmation is validated through a secure server-side integration.
+6. The application creates or updates the user's entitlement.
+7. User registers or logs in.
+8. User accesses the relevant features based on their plan.
+
+8.3 Payment Service Provider Integration Requirements
+
+Once selected, the PSP shall support payment collection and payment-related operations appropriate to the approved commercial model:
+
+- Secure payment collection.
+- Payment status and transaction references.
+- Refund processing where supported.
+- Recurring billing or subscription functions only if required by the approved monetisation model and supported by the selected PSP.
+
+The Podcast Matcher application shall remain the system of record for:
+
+- User accounts.
+- Profiles.
+- Matching.
+- Messaging.
+- Applications.
+- Bookings.
+- Reviews.
+- Subscription plans, entitlements, and application permissions.
+
+The integration shall support:
+
+- Verified order events.
+- Webhook signature verification.
+- Duplicate-event protection.
+- Payment status synchronisation.
+- Entitlement activation.
+- Subscription expiry handling.
+- Refund and cancellation synchronisation.
+- Reconciliation of failed webhook deliveries.
+
+Important: A successful checkout redirect alone must never grant paid access. Payment must be verified independently by the backend.
+
+---
+
+9. DATA REQUIREMENTS
+
+The application should maintain the following primary data entities.
+
+Entity| Description
+Users| Account and identity information
+Roles| Host, Guest and Agency permissions
+Host Profiles| Professional host information
+Guest Profiles| Professional guest information
+Podcasts| Podcast listings and metadata
+Podcast Categories| Industry and topic classification
+Expertise| Guest specialisations
+Languages| Supported communication languages
+Match Records| Compatibility and recommendation information
+Saved Profiles| Favourites and shortlists
+Applications| Guest applications
+Invitations| Host invitations
+Conversations| Communication records
+Messages| Individual messages
+Bookings| Interview scheduling records
+Availability| Recording availability
+Episodes| Recorded and published interviews
+Reviews| Post-collaboration feedback
+Verification| Identity and podcast verification
+Notifications| User notification records
+Subscriptions| Plans and entitlements
+Transactions| Payment and refund records
+Reports| User complaints and moderation cases
+Audit Logs| Administrative and sensitive actions
+
+Data relationships, retention policies and access permissions must be documented during database design.
+
+---
+
+10. SUBSCRIPTION AND REVENUE REQUIREMENTS
+
+The platform shall support a configurable monetisation model.
+
+Proposed plan structure:
+
+Plan| Intended Audience| Proposed Access
+Free| New users| Basic profiles and limited discovery
+Starter| Individual users| Expanded discovery and applications
+Pro| Active hosts and guests| Advanced matching and communication
+Premium| Power users| Higher limits and advanced tools
+Agency| PR firms and managers| Multiple client profiles and management
+
+The plan structure above is illustrative only and is not an approved commercial decision. Actual pricing, plan names, quotas, entitlements, and whether paid plans are included in the MVP must be approved by the business owner.
+
+Potential monetisation options:
+
+1. Monthly subscriptions.
+2. Annual subscriptions.
+3. Premium profile placement.
+4. Featured podcast listings.
+5. Premium guest visibility.
+6. Agency subscriptions.
+7. Verified profile services.
+8. Professional podcast booking assistance.
+9. Media kit services.
+
+Paid placement must be clearly labelled and must not falsely influence organic match scores.
+
+---
+
+11. ADMINISTRATIVE AND OPERATIONAL REQUIREMENTS
+
+The business owner must be able to manage the platform without depending on developers for routine operations.
+
+The admin dashboard must include:
+
+- User overview.
+- Host overview.
+- Guest overview.
+- Podcast overview.
+- Application overview.
+- Booking overview.
+- Revenue overview.
+- Subscription overview.
+- Verification requests.
+- Reported accounts.
+- Reported messages.
+- Category management.
+- Feature configuration.
+- Matching configuration.
+- Content moderation.
+- System activity logs.
+
+The system should support multiple administrative permission levels.
+
+---
+
+12. BUSINESS RULES
+
+The following rules shall govern the platform.
+
+BR-001: A user may have both host and guest roles.
+
+BR-002: A host may register multiple podcasts.
+
+BR-003: A guest may maintain multiple areas of expertise.
+
+BR-004: A guest application must be associated with a specific podcast.
+
+BR-005: An invitation must be associated with a host and a guest.
+
+BR-006: A booking can only be created from an eligible accepted invitation or application, or an explicitly permitted direct booking workflow.
+
+BR-007: A booking must have a valid status.
+
+BR-008: A completed collaboration may be reviewed by eligible participants.
+
+BR-009: A user cannot review the same collaboration repeatedly.
+
+BR-010: Match scores must be calculated using defined compatibility rules.
+
+BR-011: Paid features must only be accessible to users with valid entitlements.
+
+BR-012: Expired subscriptions must trigger the configured access restrictions.
+
+BR-013: A user must not access private information belonging to another user without permission.
+
+BR-014: Blocked users must not be recommended to one another.
+
+BR-015: Administrators must have an auditable record of sensitive actions.
+
+BR-016: User-declared audience figures must not be represented as independently verified statistics.
+
+BR-017: Podcast listings must be subject to moderation and accuracy policies.
+
+BR-018: Users must be able to report fraudulent or inappropriate behaviour.
+
+---
+
+13. INTEGRATIONS
+
+The following integrations should be considered.
+
+Integration| Purpose| Priority
+Selected PSP| Payment collection and payment-status integration| Priority to be confirmed
+Email provider| Registration and transactional emails| P0
+Google Calendar| Scheduling| P1
+Microsoft Outlook Calendar| Scheduling| P2
+Zoom| Recording coordination| P2
+Google Meet| Recording coordination| P2
+Calendly| External scheduling| P2
+Spotify / Apple Podcasts links| Podcast discovery and credibility| P0
+YouTube links| Podcast discovery and credibility| P0
+AI provider| Intelligent recommendations and assistance| P2
+Analytics provider| Usage and conversion tracking| P1
+
+External podcast links should initially be accepted as user-provided URLs.
+
+Automatic podcast catalogue ingestion, API synchronisation and audience analytics integrations should be treated as separate technical workstreams requiring provider-access validation.
+
+---
+
+14. ACCEPTANCE CRITERIA
+
+The platform shall not be considered ready for commercial release until the following conditions are met.
+
+Registration and Accounts
+
+- A new user can register successfully.
+- Email verification works.
+- Password recovery works.
+- Users can log in and out.
+- Role selection works.
+- Users can maintain multiple roles.
+
+Profiles
+
+- Hosts can create and edit podcast profiles.
+- Guests can create and edit professional profiles.
+- Media uploads work.
+- Profile information persists after refresh.
+- Profile visibility controls work.
+
+Discovery
+
+- Podcast search returns relevant results.
+- Guest search returns relevant results.
+- Filters work individually and in combination.
+- Sorting produces correct results.
+- Saved profiles persist.
+
+Matching
+
+- Match scores are generated correctly.
+- Scores respond to profile changes.
+- Compatibility explanations are displayed.
+- Incompatible profiles are not incorrectly recommended.
+- New users are not unfairly penalised for missing audience data.
+
+Applications and Messaging
+
+- Guests can submit applications.
+- Hosts can review applications.
+- Hosts can send invitations.
+- Users receive status notifications.
+- Messages persist across sessions.
+- Unread counts work correctly.
+- Spam and abuse controls are active.
+
+Booking
+
+- Accepted applications can progress to booking.
+- Booking dates and time zones are handled correctly.
+- Confirmation emails work.
+- Rescheduling and cancellation work.
+- Booking records persist.
+
+Payments
+
+- The selected PSP checkout works.
+- Payment events from the selected PSP are verified server-side.
+- Valid payments activate the correct entitlements.
+- Failed payments do not grant paid access.
+- Refunds and cancellations update entitlements correctly.
+- Duplicate webhook events do not duplicate transactions or access.
+
+Administration
+
+- Administrators can manage users.
+- Administrators can moderate listings.
+- Administrators can review reports.
+- Administrative actions are logged.
+
+Security and Reliability
+
+- Unauthorised users cannot access protected data.
+- User permissions are enforced server-side.
+- Backups are configured.
+- Error logging is functional.
+- The application works on desktop and mobile.
+
+---
+
+15. TESTING AND QUALITY ASSURANCE REQUIREMENTS
+
+The development team shall perform the following testing activities.
+
+15.1 Functional Testing
+
+Validate every module against its functional requirements.
+
+15.2 Regression Testing
+
+Every new release must be tested against previously working features.
+
+15.3 Integration Testing
+
+Test:
+
+- PSP and application communication.
+- Payment verification.
+- Authentication.
+- Database operations.
+- Email delivery.
+- Calendar integration.
+- File storage.
+- Messaging.
+
+15.4 Security Testing
+
+Test:
+
+- Authentication vulnerabilities.
+- Unauthorised access.
+- Role permission violations.
+- Data leakage.
+- File upload vulnerabilities.
+- API security.
+- Payment manipulation.
+- Spam and abuse scenarios.
+
+15.5 Performance Testing
+
+Test:
+
+- Search performance.
+- Large profile datasets.
+- Concurrent users.
+- Messaging volume.
+- Database performance.
+- Application loading.
+
+15.6 User Acceptance Testing
+
+Representative hosts, guests and administrators shall validate the complete workflows before release.
+
+All P0 acceptance criteria must pass before the production launch.
+
+---
+
+16. PROJECT PHASING AND IMPLEMENTATION ROADMAP
+
+Phase 1 — Functional MVP
+
+Objective: Establish a usable two-sided marketplace.
+
+Deliverables:
+
+- Authentication.
+- Host and guest roles.
+- Onboarding.
+- Host profiles.
+- Guest profiles.
+- Podcast directory.
+- Guest directory.
+- Search and filters.
+- Basic matching engine.
+- Applications and invitations.
+- Basic messaging.
+- Notifications.
+- Payment integration with the selected PSP.
+- Admin dashboard.
+- Persistent database.
+- Responsive web application.
+
+Phase 2 — Marketplace Operations
+
+Objective: Convert connections into completed collaborations.
+
+Deliverables:
+
+- Booking management.
+- Interview scheduling.
+- Calendar integration.
+- Rescheduling and cancellations.
+- Episode tracking.
+- Publication records.
+- Reviews.
+- Verification.
+- Advanced moderation.
+- Improved analytics.
+
+Phase 3 — Intelligent Platform
+
+Objective: Improve matching quality and user productivity.
+
+Deliverables:
+
+- AI-powered matching.
+- AI-generated pitch assistance.
+- AI interview topic suggestions.
+- AI-generated media kits.
+- Advanced recommendations.
+- Personalised dashboards.
+- Advanced search.
+- User activity insights.
+
+Phase 4 — Ecosystem Expansion
+
+Objective: Develop a broader podcast collaboration business.
+
+Deliverables:
+
+- Agency accounts.
+- Multiple client management.
+- Mobile applications.
+- Advanced subscription models.
+- Featured opportunities.
+- Premium booking services.
+- Podcast network partnerships.
+- International expansion.
+- Advanced reporting and analytics.
+
+---
+
+17. SUCCESS METRICS AND KPIs
+
+The platform's success must be measured through actual marketplace activity, not simply registrations.
+
+KPI| What It Measures
+Total registered hosts| Supply-side growth
+Total registered guests| Demand-side growth
+Active podcasts| Marketplace inventory
+Complete profiles| Profile quality
+Matches generated| Discovery activity
+Match acceptance rate| Match relevance
+Applications submitted| Guest engagement
+Application acceptance rate| Host interest
+Confirmed interviews| Booking conversion
+Completed interviews| Actual collaboration
+Published episodes| Real marketplace value
+Repeat collaborations| Retention
+Monthly active users| Engagement
+Free-to-paid conversion| Monetisation
+Monthly recurring revenue| Financial performance
+Churn rate| Subscription retention
+
+Primary North Star Metric:
+
+Number of verified podcast interviews successfully completed per month.
+
+A secondary metric should track the percentage of completed interviews that result in published episodes.
+
+---
+
+18. RISKS AND DEPENDENCIES
+
+Risk| Business Impact| Mitigation
+Empty marketplace| Poor user retention| Seed verified profiles before launch
+Irrelevant matches| Reduced trust| Continuously validate scoring
+Fake profiles| Reputation damage| Verification and moderation
+Spam applications| Host frustration| Application limits and anti-spam
+Low host activity| Limited opportunities| Host acquisition programme
+Poor guest quality| Reduced host interest| Profile standards and reviews
+Payment synchronisation errors| Revenue and access issues| Verified webhooks and reconciliation
+Data loss| Loss of user trust| Automated backups
+Privacy breaches| Legal and reputational damage| Access controls and security testing
+High user acquisition costs| Unsustainable growth| Partnerships and community-led acquisition
+
+Critical Dependencies
+
+- Hosting infrastructure.
+- Backend and database.
+- Authentication provider.
+- Integration with the selected PSP, once selected.
+- Email delivery.
+- Domain and DNS configuration.
+- Privacy and legal documentation.
+- Admin operational resources.
+- Initial host and guest acquisition.
+
+---
+
+19. EXCLUSIONS FROM THE INITIAL RELEASE
+
+The following features are not mandatory for the first functional MVP:
+
+- Native Android application.
+- Native iOS application.
+- Automated podcast recording.
+- Built-in video conferencing.
+- Automated podcast distribution.
+- Automated episode editing.
+- Automatic audience analytics from every podcast platform.
+- AI voice cloning.
+- Automated guest payment processing.
+- Full agency CRM.
+- Complex commission marketplace.
+
+These can be considered in subsequent releases.
+
+---
+
+20. FINAL DELIVERABLES EXPECTED FROM THE DEVELOPMENT TEAM
+
+The development team shall deliver:
+
+1. Complete responsive web application.
+2. Production-ready frontend.
+3. Backend services and APIs.
+4. Database schema and documentation.
+5. Authentication and role management.
+6. Matching engine.
+7. Host and guest dashboards.
+8. Search and discovery.
+9. Application and invitation workflows.
+10. Persistent messaging.
+11. Payment integration with the selected PSP.
+12. Subscription entitlement management.
+13. Administrative dashboard.
+14. Notification system.
+15. Security implementation.
+16. Testing documentation.
+17. Deployment documentation.
+18. Source code and repository access.
+19. Environment and configuration documentation.
+20. Technical handover and administrator training.
+
+All source code, database access, deployment credentials and third-party service ownership arrangements must be documented and transferred to Emerging Talks as agreed in the development contract.
+
+---
+
+21. FINAL PRODUCT DEFINITION
+
+Emerging Talks Podcast Matcher shall be developed as a professional podcast collaboration marketplace connecting podcast hosts with relevant experts, entrepreneurs, authors, founders, creators and professionals.
+
+The platform shall provide the infrastructure required to discover, evaluate, connect, communicate, schedule and track podcast collaborations.
+
+Its core differentiation shall be the combination of:
+
+- Professional guest and podcast profiles.
+- Intelligent compatibility-based matching.
+- Structured interview application workflows.
+- Integrated communication.
+- Interview booking and tracking.
+- Reputation and verification.
+- A scalable professional podcast network.
+
+The product must not be limited to a contact directory or a matching interface.
+
+Its commercial and strategic value will come from successfully converting discovery into real podcast collaborations.
+
+The ultimate objective is to make Emerging Talks a trusted destination for finding the right podcast, the right guest and the right conversation.
+
+
+---
+
+## 21. PRODUCT DECISIONS, MVP DEFINITION AND LAUNCH STRATEGY
+
+### 21.1 Confirmed Business Direction
+
+Emerging Talks has confirmed that the initial launch will use a curated network.
+
+The initial marketplace should be seeded with selected podcast hosts, podcasts and guests, with profile quality and relevance reviewed before wider access. The operational process, selection criteria, and initial inventory targets remain to be defined.
+
+### 21.2 Decisions Still Open
+
+The following decisions are intentionally unresolved and must be approved by the business owner before the development scope and commercial requirements are baselined:
+
+- Monetisation model: subscriptions, paid services, per-booking fees or another model.
+- Whether paid access is required at launch.
+- MVP boundary: discovery and connection only, or the complete collaboration workflow through booking and interview tracking.
+- Initial free and paid entitlements, if applicable.
+- Payment service provider and supported payment methods.
+- Launch inventory targets and curation/verification criteria.
+- Initial success targets and launch-readiness thresholds.
+
+Until these decisions are approved, pricing, plan limits, paid-feature entitlements, provider-specific payment requirements, and final MVP acceptance criteria shall remain provisional.
+
+### 21.3 Recommended Decision Gate
+
+Before development estimation and final sign-off, Emerging Talks should approve:
+
+1. The launch user journeys and the minimum workflows required to validate marketplace demand.
+2. The monetisation hypothesis to test, even if payment collection is deferred from the first release.
+3. The initial curated host, podcast and guest acquisition plan.
+4. The PSP selection criteria and provider decision.
+5. The measurable launch targets and the owner responsible for each.
+
+### 21.4 Curated Launch Operating Requirements
+
+For the initial curated launch, the platform or its administrators should support:
+
+- Inviting or approving selected hosts, podcasts and guests.
+- Reviewing profile completeness and basic authenticity before publication.
+- Recording the source and status of verification or curation decisions.
+- Managing invitations, onboarding follow-up, and launch cohort status.
+- Collecting feedback from the initial cohort and using it to refine matching and workflows.
+
+The detailed curation workflow, review standards, and inventory targets require business-owner approval.
+
+---
+
+## 22. BUSINESS APPROVAL
+
+The following stakeholders should review and approve the document before development begins.
+
+Stakeholder| Responsibility| Approval
+Business Owner| Product vision, monetisation, MVP and business requirements| Pending
+Product Manager| Feature scope and prioritisation| Pending
+Technical Lead| Technical feasibility and architecture| Pending
+UI/UX Designer| User experience and interface requirements| Pending
+QA Lead| Testing strategy and acceptance criteria| Pending
+Development Team| Implementation estimates and delivery plan| Pending
+
+Document status: Revised draft for review and approval.
+
+End of Business Requirements Document.

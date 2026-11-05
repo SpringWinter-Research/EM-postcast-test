@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@theme {
+  --color-background: #f5f7f6;
+  --color-card: #fff;
+  --color-card-foreground: #172823;
+  --color-foreground: #172823;
+  --color-primary: #175745;
+  --color-primary-foreground: #fff;
+  --color-secondary: #edf2ef;
+  --color-secondary-foreground: #273f36;
+  --color-accent: #e8f3ec;
+  --color-accent-foreground: #204c3c;
+  --color-muted: #edf2ef;
+  --color-muted-foreground: #4e6259;
+  --color-border: #d8e2dc;
+  --color-input: #bdcdc4;
+  --color-ring: #478c74;
+  --color-destructive: #b42318;
+}
+@layer base {
+  body { @apply bg-background font-sans leading-relaxed text-foreground antialiased; }
+  h1 { @apply text-3xl font-semibold tracking-tight text-balance sm:text-4xl; }
+  h2 { @apply text-lg font-semibold tracking-tight text-balance sm:text-xl; }
+  h3 { @apply font-semibold; }
+  label { @apply grid min-w-0 gap-1.5 text-sm font-medium; }
+  a { @apply underline underline-offset-4; }
+  select { @apply min-h-11 w-full min-w-0 rounded-md border border-input bg-card px-3 py-2 text-base shadow-xs focus-visible:outline-2 focus-visible:outline-ring md:text-sm; }
+  input[type=checkbox] { @apply size-4 shrink-0 accent-primary; }
+  fieldset { @apply flex min-w-0 flex-wrap gap-2; }
+  legend { @apply mb-2 text-sm font-medium; }
+}
+@layer components {
+  .nav-link { @apply inline-flex min-h-11 items-center rounded-lg px-3 font-medium text-muted-foreground no-underline hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring; }
+  .nav-link[aria-current=page] { @apply bg-accent text-accent-foreground; }
+  .choice-label { @apply inline-flex min-h-10 cursor-pointer flex-row items-center gap-2 rounded-lg border border-border px-3 font-normal hover:bg-muted has-[:checked]:border-primary/50 has-[:checked]:bg-accent; }
+  [data-slot=input], [data-slot=button] { @apply min-h-11 md:min-h-9; }
+  [data-slot=card] { @apply min-w-0 gap-4; }
+}

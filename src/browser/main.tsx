@@ -103,7 +103,7 @@ function Layout() {
   </>
 }
 function Choices({title,field,options,selected=[]}:{title:string;field:string;options:string[];selected?:string[]}) {
-  return <fieldset><legend>{title}</legend>{options.map(option=><label className="choice-label" key={option}><Input name={field} value={option} type="checkbox" defaultChecked={selected.includes(option)}/>{option}</label>)}</fieldset>
+  return <fieldset><legend>{title}</legend>{options.map(option=><label className="choice-label" key={option}><input name={field} value={option} type="checkbox" defaultChecked={selected.includes(option)}/>{option}</label>)}</fieldset>
 }
 function Editor({kind,item}:{kind:'host'|'guest'|'podcast';item?:Listing}) {
   const action = useAction()

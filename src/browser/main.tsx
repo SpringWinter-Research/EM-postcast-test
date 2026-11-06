@@ -1,3 +1,4 @@
+import {FormDialog} from './form-dialog'
 import {useState,type FormEvent,type ReactNode} from 'react'
 import {createRoot} from 'react-dom/client'
 import {createRouter,createRootRoute,createRoute,RouterProvider,Link,Outlet} from '@tanstack/react-router'
@@ -109,26 +110,28 @@ function Editor({kind,item}:{kind:'host'|'guest'|'podcast';item?:Listing}) {
   const action = useAction()
   const fields = item?.draft ?? {}
   const path = kind === 'podcast' ? '/me/podcasts'+(item ? '/'+item.id : '') : '/me/profiles/'+kind
-  function save(event:FormEvent<HTMLFormElement>) {
+  function save(event:FormEvent<HTMLFormElement>, close:()=>void) {
     const target = event.currentTarget
     const data = form(event)
     const payload:Fields = {name:value(data,'name')}
     if (kind !== 'host') Object.assign(payload,{topics:data.getAll('topics'),languages:data.getAll('languages'),formats:data.getAll('formats')})
     if (kind === 'guest') payload.bio=value(data,'bio')
     if (kind === 'podcast') Object.assign(payload,{description:value(data,'description'),url:value(data,'url'),open:data.has('open')})
-    action.mutate(()=>call(path,kind === 'podcast' ? item ? 'PATCH' : 'POST' : 'PUT',payload),{onSuccess:()=>{if (!item && kind === 'podcast') target.reset()}})
+    action.mutate(()=>call(path,kind === 'podcast' ? item ? 'PATCH' : 'POST' : 'PUT',payload),{onSuccess:()=>{if (!item && kind === 'podcast') target.reset();close()}})
   }
   return <Card>
     <h2>{item?.draft.name || (kind === 'podcast' ? 'New podcast' : kind === 'host' ? 'Host profile' : 'Guest profile')}</h2>
     {item && <div className="flex flex-wrap gap-2"><Badge variant="secondary">{item.status}</Badge>{item.hidden ? <Badge variant="outline">Hidden</Badge> : item.approved && <Badge>Published</Badge>}</div>}
     {item?.reason && <p role="status">{item.reason}</p>}
-    <form className="grid gap-3" onSubmit={save}>
+    <div><FormDialog label={item ? "Edit draft" : kind === "podcast" ? "Add a podcast" : "Create profile"} title={item?.draft.name || (kind === "podcast" ? "New podcast" : kind === "host" ? "Host profile" : "Guest profile")}>{close=><>
+    <form className="grid gap-3" onSubmit={event=>save(event,close)}>
       <label>{kind === 'podcast'?'Show name':'Display name'}<Input name="name" defaultValue={fields.name}/></label>
       {kind === 'guest' && <label>Short bio<Textarea name="bio" defaultValue={fields.bio}/></label>}
       {kind === 'podcast' && <><label>Short description<Textarea name="description" defaultValue={fields.description}/></label><label>Public show link<Input name="url" type="url" defaultValue={fields.url}/></label><label className="inline-flex flex-row"><input type="checkbox" name="open" defaultChecked={fields.open ?? true}/>Accept guest applications</label></>}
       {kind !== 'host' && <><Choices title="Topics" field="topics" options={topics} selected={fields.topics}/><Choices title="Interview languages" field="languages" options={languages} selected={fields.languages}/><Choices title="Formats" field="formats" options={formats} selected={fields.formats}/></>}
       <div><Button disabled={action.isPending}>Save draft</Button></div>
-    </form>
+    </form><ErrorText error={action.error}/>
+    </>}</FormDialog></div>
     {item && <div className="flex flex-wrap gap-2">
       <Button disabled={item.status==='pending'||action.isPending} onClick={()=>action.mutate(()=>call(path+'/submit','POST'))}>Submit saved draft</Button>
       <Button variant="outline" disabled={action.isPending} onClick={()=>action.mutate(()=>call(path+'/visibility','PATCH',{hidden:!item.hidden}))}>{item.hidden?'Show':'Hide'}</Button>
@@ -139,7 +142,6 @@ function Editor({kind,item}:{kind:'host'|'guest'|'podcast';item?:Listing}) {
 function Profiles() {
   const profiles = useQuery({queryKey:['/me/profiles'],queryFn:()=>call<Listing[]>('/me/profiles')})
   const action = useAction()
-  const [newShow,setNewShow]=useState(false)
   const data = profiles.data?.data
   const host = data?.find(item=>item.id.startsWith('host:'))
   const guest = data?.find(item=>item.id.startsWith('guest:'))
@@ -149,7 +151,7 @@ function Profiles() {
     <Editor key={guest?.id ?? 'new-guest'} kind="guest" item={guest}/>
     </div>
     {host && <><h2>Podcasts</h2><List<Listing> path="/me/podcasts" columns>{item=><Editor key={item.id} kind="podcast" item={item}/>}</List>
-      <div><Button onClick={()=>setNewShow(!newShow)}>{newShow?'Close form':'Add a podcast'}</Button></div>{newShow&&<Editor kind="podcast"/>}</>}
+      <Editor kind="podcast"/></>}
     <div><Button variant="outline" disabled={action.isPending||action.isSuccess} onClick={()=>action.mutate(()=>call('/me/deletion-requests','POST'))}>Request account deletion</Button></div>
     {action.isSuccess && <p role="status">Deletion request sent.</p>}<ErrorText error={action.error}/>
     <List<{id:string;name:string}> path="/blocks">{item=><Card key={item.id}><span>{item.name}</span><Button onClick={()=>action.mutate(()=>call('/blocks/'+item.id,'DELETE'))}>Unblock</Button></Card>}</List>
@@ -157,10 +159,10 @@ function Profiles() {
 }
 function Report({kind,id}:{kind:string;id:string}) {
   const action = useAction()
-  return <details><summary className="cursor-pointer text-sm underline">Report</summary>
+  return <div><FormDialog label="Report">{()=> <>
     <form className="mt-2 flex flex-wrap gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call('/reports','POST',{kind,id,reason:value(data,'reason')}))}}>
       <label>Reason<Input name="reason" required/></label><Button disabled={action.isPending||action.isSuccess}>Send report</Button>
-    </form>{action.isSuccess&&<p role="status">Report sent.</p>}<ErrorText error={action.error}/></details>
+    </form>{action.isSuccess&&<p role="status">Report sent.</p>}<ErrorText error={action.error}/></>}</FormDialog></div>
 }
 function Discover() {
   const [view,setView]=useState('podcasts')
@@ -186,12 +188,12 @@ function DiscoveryCard({entry,guest,podcast}:{entry:Entry;guest:boolean;podcast:
     <div className="flex flex-wrap gap-1.5">{entry.topics?.map(topic=><Badge variant="secondary" key={topic}>{topic}</Badge>)}</div><p className="text-sm text-muted-foreground">{entry.languages?.join(', ')} · {entry.formats?.join(', ')}</p>
     {entry.reasons&&<div className="grid gap-1 rounded-lg bg-accent p-3 text-sm text-accent-foreground"><strong>Match {entry.score}/100</strong><p>Shared topics {entry.reasons.topics.join(', ')} · Shared languages {entry.reasons.languages.join(', ')} · {entry.reasons.formats.join(', ')||'Format differs'}</p></div>}
     {entry.accountId!==me?.id&&<>
-      {(guest?Boolean(podcast):entry.open)&&<details><summary className="cursor-pointer underline">{guest?'Invite guest':'Apply to podcast'}</summary>
+      {(guest?Boolean(podcast):entry.open)&&<div><FormDialog label={guest?'Invite guest':'Apply to podcast'} title={guest?'Invite '+entry.name:'Apply to '+entry.name}>{()=> <>
         <form className="mt-3 grid gap-3" onSubmit={event=>{const data=form(event);action.mutate(()=>call('/requests','POST',{direction:guest?'invitation':'application',podcastId:guest?podcast:entry.id,guestId:guest?entry.accountId:undefined,message:value(data,'message'),startsAt:new Date(value(data,'time')).toISOString(),timezone:Intl.DateTimeFormat().resolvedOptions().timeZone}))}}>
           <label>Message<Textarea name="message" required maxLength={2000}/></label><label>Proposed start ({Intl.DateTimeFormat().resolvedOptions().timeZone})<Input type="datetime-local" name="time" required/></label>
           <div><Button disabled={action.isPending||action.isSuccess}>Send request</Button></div>
         </form>{action.isSuccess&&<p role="status">Request sent.</p>}<ErrorText error={action.error}/>
-      </details>}
+      </>}</FormDialog></div>}
       <Report kind={guest?'guest':'podcast'} id={entry.id}/>
       <div><Button variant="ghost" onClick={()=>block.mutate(()=>call('/blocks/'+entry.accountId,'PUT'))}>Block account</Button></div><ErrorText error={block.error}/>
     </>}
@@ -236,14 +238,14 @@ function AdminCard({section,item}:{section:string;item:AdminRecord}) {
   return <Card><h2>{item.showName??item.submitted?.name??item.name??item.id}</h2>
     {item.status&&<p>{item.kind} {item.status}</p>}
     {item.submitted&&<><p>{item.submitted.bio??item.submitted.description}</p><p>{item.submitted.topics?.join(', ')} {item.submitted.languages?.join(', ')} {item.submitted.formats?.join(', ')}</p>{item.submitted.url&&<a href={item.submitted.url} target="_blank" rel="noreferrer">Check public show link</a>}</>}
-    {section==='submissions'&&<><div><Button disabled={action.isPending} onClick={()=>action.mutate(()=>call(path+'/approve','POST'))}>Approve</Button></div><form className="flex flex-wrap gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/return','POST',{reason:value(data,'reason')}))}}><label>Reason<Input name="reason" required/></label><Button disabled={action.isPending}>Return for edits</Button></form></>}
+    {section==='submissions'&&<><div><Button disabled={action.isPending} onClick={()=>action.mutate(()=>call(path+'/approve','POST'))}>Approve</Button></div><div><FormDialog label="Return for edits">{close=><><form className="flex flex-wrap gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/return','POST',{reason:value(data,'reason')}),{onSuccess:close})}}><label>Reason<Input name="reason" required/></label><Button disabled={action.isPending}>Return for edits</Button></form><ErrorText error={action.error}/></>}</FormDialog></div></>}
     {item.detail&&<pre className="whitespace-pre-wrap break-all rounded bg-muted p-2 text-xs">{JSON.stringify(item.detail,null,2)}</pre>}
-    {['reports','deletion-requests'].includes(section)&&item.status==='pending'&&<form className="flex flex-wrap gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/resolve','POST',{note:value(data,'note')}))}}><label>Resolution<Input name="note" required/></label><Button disabled={action.isPending}>Resolve</Button></form>}
+    {['reports','deletion-requests'].includes(section)&&item.status==='pending'&&<div><FormDialog label="Resolve">{close=><><form className="flex flex-wrap gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/resolve','POST',{note:value(data,'note')}),{onSuccess:close})}}><label>Resolution<Input name="note" required/></label><Button disabled={action.isPending}>Resolve</Button></form><ErrorText error={action.error}/></>}</FormDialog></div>}
     {section==='accounts'&&<><p>{item.email} · {item.banned?'Suspended':'Active'}</p><div><Button disabled={action.isPending} onClick={()=>action.mutate(async()=>{const result=item.banned?await auth.admin.unbanUser({userId:item.id}):await auth.admin.banUser({userId:item.id});if(result.error)throw new Error(result.error.message??'Account action failed')})}>{item.banned?'Reactivate':'Suspend'}</Button></div></>}
-    {section==='requests'&&<><p>Guest {item.guestName??item.guestId} · Proposed {item.startsAt && new Date(item.startsAt).toLocaleString()}</p>{item.confirmation?<p>Confirmed for {item.confirmation.date}</p>:<form className="grid gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/confirmation','PUT',{date:value(data,'date'),type:evidence,note:value(data,'note'),url:value(data,'url')||undefined}))}}>
+    {section==='requests'&&<><p>Guest {item.guestName??item.guestId} · Proposed {item.startsAt && new Date(item.startsAt).toLocaleString()}</p>{item.confirmation?<p>Confirmed for {item.confirmation.date}</p>:<div><FormDialog label="Confirm interview">{close=><><form className="grid gap-2" onSubmit={event=>{const data=form(event);action.mutate(()=>call(path+'/confirmation','PUT',{date:value(data,'date'),type:evidence,note:value(data,'note'),url:value(data,'url')||undefined}),{onSuccess:close})}}>
       <label>Actual interview date<Input name="date" type="date" required/></label><label>Evidence type<select value={evidence} onChange={event=>setEvidence(event.target.value)}><option value="statements">Written statements from both participants</option><option value="episode">Public episode link</option></select></label>
       {evidence==='episode'&&<label>Public episode link<Input name="url" type="url" required/></label>}
-      <label>Evidence note<Textarea name="note" required/></label><div><Button disabled={action.isPending}>Confirm interview</Button></div></form>}</>}
+      <label>Evidence note<Textarea name="note" required/></label><div><Button disabled={action.isPending}>Confirm interview</Button></div></form><ErrorText error={action.error}/></>}</FormDialog></div>}</>}
     <ErrorText error={action.error}/>
   </Card>
 }

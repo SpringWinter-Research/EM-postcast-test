@@ -12,6 +12,7 @@ RUN bun install --frozen-lockfile --production
 COPY --from=build /app/dist ./dist
 COPY src ./src
 COPY migrations ./migrations
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/us-east-2/us-east-2-bundle.pem /app/rds-ohio.pem
 ENV NODE_ENV=production
 USER bun
 EXPOSE 3000

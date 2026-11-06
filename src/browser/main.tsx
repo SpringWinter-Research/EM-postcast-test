@@ -45,38 +45,30 @@ function List<T>({path,children,columns=false}:{path:string;children:(item:T)=>R
   </div>
 }
 function Account() {
-  const params = new URLSearchParams(location.search)
-  const [mode,setMode] = useState(params.has('token') ? 'reset' : 'login')
-  const [notice,setNotice] = useState('')
+  const [mode,setMode] = useState<'login'|'register'>('login')
   const action = useAction()
   async function submit(event:FormEvent<HTMLFormElement>) {
     const fields = form(event)
     const email = value(fields,'email')
     const password = value(fields,'password')
-    const callbackURL = location.origin
     action.mutate(async()=>{
       const result = mode === 'login' ? await auth.signIn.email({email,password}) :
-        mode === 'register' ? await auth.signUp.email({email,password,name:value(fields,'name'),callbackURL}) :
-        mode === 'verify' ? await auth.sendVerificationEmail({email,callbackURL}) :
-        mode === 'reset' ? await auth.resetPassword({token:params.get('token')!,newPassword:password}) :
-        await auth.requestPasswordReset({email,redirectTo:callbackURL})
+        await auth.signUp.email({email,password,name:value(fields,'name')})
       if (result.error) throw new Error(result.error.message ?? 'Account action failed')
-      if (mode === 'reset') {history.replaceState(null,'','/');setMode('login');setNotice('Password updated. Sign in.')}
-      else if (mode !== 'login') setNotice('Check your email to continue.')
     })
   }
   return <div className="mx-auto grid w-full max-w-md gap-6">
     <Brand/>
     <PageHeading title="Podcast Matcher" description="Find a podcast or guest for your next interview."/>
-    <Card><h2>{({login:'Sign in',register:'Register',reset:'Set a new password',verify:'Verify email',forgot:'Reset password'})[mode]}</h2>
+    <Card><h2>{mode === 'login' ? 'Sign in' : 'Register'}</h2>
       <form className="grid gap-3" onSubmit={submit}>
         {mode === 'register' && <label>Display name<Input name="name" required/></label>}
-        {mode !== 'reset' && <label>Email<Input name="email" type="email" required/></label>}
-        {['login','register','reset'].includes(mode) && <label>Password<Input name="password" type="password" minLength={8} required/></label>}
+        <label>Email<Input name="email" type="email" autoComplete="username" required/></label>
+        <label>Password<Input name="password" type="password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} minLength={8} required/></label>
         <Button disabled={action.isPending}>Continue</Button>
       </form>
-      <ErrorText error={action.error}/>{notice && <p role="status">{notice}</p>}
-      <div className="flex flex-wrap gap-2">{[['login','Sign in'],['register','Register'],['forgot','Forgot password'],['verify','Resend verification']].filter(([key])=>key!==mode).map(([key,label])=><Button variant="ghost" key={key} onClick={()=>{setMode(key);action.reset();setNotice('')}}>{label}</Button>)}</div>
+      <ErrorText error={action.error}/>
+      <div><Button variant="ghost" onClick={()=>{setMode(mode === 'login' ? 'register' : 'login');action.reset()}}>{mode === 'login' ? 'Register' : 'Sign in'}</Button></div>
     </Card>
   </div>
 }
@@ -139,6 +131,22 @@ function Editor({kind,item}:{kind:'host'|'guest'|'podcast';item?:Listing}) {
     <ErrorText error={action.error}/>
   </Card>
 }
+function PasswordForm() {
+  const action = useAction()
+  return <FormDialog label="Change password">{close=><form className="grid gap-3" onSubmit={event=>{
+    const fields = form(event)
+    action.mutate(async()=>{
+      const result = await auth.changePassword({currentPassword:value(fields,'current'),newPassword:value(fields,'next'),revokeOtherSessions:true})
+      if (result.error) throw new Error(result.error.message ?? 'Password change failed')
+      close()
+    })
+  }}>
+    <label>Current password<Input type="password" name="current" autoComplete="current-password" required/></label>
+    <label>New password<Input type="password" name="next" autoComplete="new-password" minLength={8} required/></label>
+    <Button disabled={action.isPending}>Save password</Button>
+    <ErrorText error={action.error}/>
+  </form>}</FormDialog>
+}
 function Profiles() {
   const profiles = useQuery({queryKey:['/me/profiles'],queryFn:()=>call<Listing[]>('/me/profiles')})
   const action = useAction()
@@ -152,6 +160,7 @@ function Profiles() {
     </div>
     {host && <><h2>Podcasts</h2><List<Listing> path="/me/podcasts" columns>{item=><Editor key={item.id} kind="podcast" item={item}/>}</List>
       <Editor kind="podcast"/></>}
+    <div><PasswordForm/></div>
     <div><Button variant="outline" disabled={action.isPending||action.isSuccess} onClick={()=>action.mutate(()=>call('/me/deletion-requests','POST'))}>Request account deletion</Button></div>
     {action.isSuccess && <p role="status">Deletion request sent.</p>}<ErrorText error={action.error}/>
     <List<{id:string;name:string}> path="/blocks">{item=><Card key={item.id}><span>{item.name}</span><Button onClick={()=>action.mutate(()=>call('/blocks/'+item.id,'DELETE'))}>Unblock</Button></Card>}</List>

@@ -1,5 +1,5 @@
 import {afterAll, expect, test} from 'bun:test'
-import {mkdtempSync,rmSync,readdirSync} from 'node:fs'
+import {mkdtempSync,rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {Database} from 'bun:sqlite'
@@ -7,7 +7,6 @@ import {Database} from 'bun:sqlite'
 const folder = mkdtempSync(join(tmpdir(),'podcast-test-'))
 process.env.NODE_ENV = 'test'
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL ?? ''
-process.env.MAIL_DIR = join(folder,'mail')
 process.env.SQLITE_PATH = join(folder,'db.sqlite')
 process.env.BETTER_AUTH_URL = 'http://localhost:5173'
 const migration = Bun.spawnSync(['bun','run','migrate'],{env:process.env})
@@ -32,14 +31,9 @@ async function member(name:string,role?:string) {
   expect(signed.status).toBe(200)
   const id = signed.json.user.id as string
   const user = schema.user as typeof import('../src/server/schema.sqlite').user
-  const unverified = await send('/api/auth/sign-in/email','POST',{email,password})
-  expect(unverified.status).toBe(403)
-  const mailDir = join(folder,'mail')
-  const mailbox = await Promise.all(readdirSync(mailDir).map(file => Bun.file(join(mailDir,file)).json()))
-  const message = mailbox.find(item => item.to === email)
-  expect(message?.subject).toBe('Verify your email address')
-  const verified = await app.request(message.url)
-  expect(verified.status).toBe(302)
+  expect(signed.json.user.emailVerified).toBe(false)
+  const signupCookie = signed.headers.getSetCookie().map(value=>value.split(';')[0]).join('; ')
+  expect((await api('/me',signupCookie)).status).toBe(200)
   if (role) await db.update(user).set({role}).where(eq(user.id,id))
   const login = await send('/api/auth/sign-in/email','POST',{email,password})
   expect(login.status).toBe(200)

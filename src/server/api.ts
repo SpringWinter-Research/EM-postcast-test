@@ -32,7 +32,7 @@ const hasRole = (session:Session, role:string) => session.user.role?.split(',').
 api.use('*',async (c,next) => {
   const session = await auth.api.getSession({headers:c.req.raw.headers})
   if (!session) throw new HTTPException(401,{message:'Sign in first'})
-  if (!session.user.emailVerified || suspended({banned:session.user.banned ?? null,banExpires:session.user.banExpires ?? null})) fail(403,'Account is unavailable')
+  if (suspended({banned:session.user.banned ?? null,banExpires:session.user.banExpires ?? null})) fail(403,'Account is unavailable')
   c.set('session',session)
   await next()
 })

@@ -39,7 +39,7 @@ app.on(['GET','POST'],'/api/auth/*',async c => {
   if (!action && path.startsWith('/api/auth/admin/')) throw new HTTPException(404)
   if (!action) return auth.handler(c.req.raw)
   const session = await auth.api.getSession({headers:c.req.raw.headers})
-  if (!session?.user.emailVerified || !session.user.role?.split(',').includes('admin')) throw new HTTPException(403)
+  if (!session?.user.role?.split(',').includes('admin')) throw new HTTPException(403)
   const value = await c.req.raw.clone().json() as {userId:string}
   if (value.userId === session.user.id) throw new HTTPException(400,{message:'You cannot suspend your own account'})
   const response = await auth.handler(c.req.raw)

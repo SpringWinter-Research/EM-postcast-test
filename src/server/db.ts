@@ -1,5 +1,5 @@
 import {Database} from 'bun:sqlite'
-import {mkdirSync} from 'node:fs'
+import {mkdirSync,readFileSync} from 'node:fs'
 import {dirname} from 'node:path'
 import {drizzle as sqlite} from 'drizzle-orm/bun-sqlite'
 import {drizzle as pg} from 'drizzle-orm/postgres-js'
@@ -15,7 +15,8 @@ function openSqlite() {
   connection.exec('PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL; PRAGMA busy_timeout = 5000;')
   return connection
 }
-export const client = isPg ? postgres(config.DATABASE_URL!) : openSqlite()
+const ssl = config.DATABASE_CA_FILE ? {ca:readFileSync(config.DATABASE_CA_FILE,'utf8'),rejectUnauthorized:true} : undefined
+export const client = isPg ? postgres(config.DATABASE_URL!, {ssl}) : openSqlite()
 export const schema = isPg ? pgSchema : liteSchema
 // Both schemas expose the same columns. Keep the dialect cast at this boundary.
 export const db = ((client instanceof Database) ? sqlite(client) : pg(client as ReturnType<typeof postgres>)) as ReturnType<typeof sqlite>
